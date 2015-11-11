@@ -196,7 +196,8 @@ p3 <- ggplot(total_by_day_imp, aes(x = date, y = total_steps)) +
   geom_histogram(stat = 'identity') +
   ylab('Total Steps') +
   xlab('Date') +
-  geom_line(stat = 'hline', yintercept = 'mean', color = 'red')
+  geom_line(stat = 'hline', yintercept = 'mean', color = 'red')+
+  ggtitle("Mean Steps Taken Per Day with Imputed Values")
 p3
 ```
 
@@ -255,7 +256,8 @@ int_max_wday <- avg_by_interval_wday %>%
   group_by(weekend) %>%
   filter(avg_steps == max(avg_steps))
 p4 + geom_vline(aes(xintercept = interval), int_max_wday, color = 'red',
-                linetype = 'dotted') + geom_smooth()
+                linetype = 'dotted') + geom_smooth()+
+  ggtitle("Activity Patterns by Weekday and Weekend")
 ```
 
 ```
