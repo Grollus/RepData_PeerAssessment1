@@ -32,7 +32,7 @@ head(total_by_day)
 ```
 
 Now, a histogram will succinctly show our steps per day.
-```{r, fig.width = 11}
+```{r, mean_total_steps_per_day, fig.width = 11}
 p1 <- ggplot(total_by_day, aes(x = date, y = total_steps)) +
   geom_histogram(stat = 'identity') +
   ylab('Total Steps') +
@@ -64,7 +64,7 @@ head(avg_by_interval)
 Now I am able to view the data graphically, looking at the average number of steps 
 taken per 5 minute time interval.
 
-```{r, fig.width = 11}
+```{r, average_daily_activity_pattern, fig.width = 11}
 p2 <- ggplot(avg_by_interval, aes(x = interval, y = avg_steps)) +
   geom_line(stat = 'identity') +
   ylab('Average # of Steps') +
@@ -111,7 +111,7 @@ head(data2)
 ```
 
 Now, let's see how our dataset has changed with this imputation strategy.
-```{r, fig.width = 11}
+```{r,imputed_daily_average, fig.width = 11}
 total_by_day_imp <- data2 %>%
   group_by(date)%>%
   summarise(total_steps = sum(steps))
@@ -149,7 +149,7 @@ head(data2)
 ```
 
 Now our data is in a form where we can facet based on weekday/weekend.
-```{r, fig.width = 11}
+```{r,weekend_weekday_activity_patterns, fig.width = 11}
 avg_by_interval_wday <- data2 %>%
   group_by(interval, weekend) %>%
   summarise(avg_steps = round(mean(steps), digits = 2))

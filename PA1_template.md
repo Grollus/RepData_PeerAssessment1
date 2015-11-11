@@ -81,7 +81,7 @@ p1 <- ggplot(total_by_day, aes(x = date, y = total_steps)) +
 p1
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+![plot of chunk mean_total_steps_per_day](figure/mean_total_steps_per_day-1.png) 
 
 
 ```r
@@ -131,7 +131,7 @@ p2 + geom_vline(xintercept = int_max, color = 'red', linetype = 'dotted') +
   ggtitle("Average Daily Activity Pattern")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![plot of chunk average_daily_activity_pattern](figure/average_daily_activity_pattern-1.png) 
 This gives us a good general idea of the peak, but it is still a little tough to
 eyeball an exact value.  Luckily, since I used this value to add our dashed line we
 already have it stored in the value int_max. Our peak activity level occurs during
@@ -200,7 +200,7 @@ p3 <- ggplot(total_by_day_imp, aes(x = date, y = total_steps)) +
 p3
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+![plot of chunk imputed_daily_average](figure/imputed_daily_average-1.png) 
 
 
 ```r
@@ -263,7 +263,7 @@ p4 + geom_vline(aes(xintercept = interval), int_max_wday, color = 'red',
 ## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
+![plot of chunk weekend_weekday_activity_patterns](figure/weekend_weekday_activity_patterns-1.png) 
 As you can see, the shape of our data is significantly different when broken down by 
 weekday/weekend.  This may indicate different activity patterns during the workweek
 versus the weekend.  Just glancing, we can see the peak for weekdays is earlier,
