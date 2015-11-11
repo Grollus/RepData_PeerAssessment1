@@ -37,7 +37,8 @@ p1 <- ggplot(total_by_day, aes(x = date, y = total_steps)) +
   geom_histogram(stat = 'identity') +
   ylab('Total Steps') +
   xlab('Day')+
-  geom_line(stat = 'hline', yintercept = 'mean', colour = 'red')
+  geom_line(stat = 'hline', yintercept = 'mean', colour = 'red')+
+  ggtitle("Mean Number of Steps Taken Per Day")
 p1
 ```
 
@@ -69,7 +70,8 @@ p2 <- ggplot(avg_by_interval, aes(x = interval, y = avg_steps)) +
   ylab('Average # of Steps') +
   xlab('5-min Time Interval')
 int_max <- avg_by_interval$interval[avg_by_interval$avg_steps == max(avg_by_interval$avg_steps)]
-p2 + geom_vline(xintercept = int_max, color = 'red', linetype = 'dotted')
+p2 + geom_vline(xintercept = int_max, color = 'red', linetype = 'dotted') +
+  ggtitle("Average Daily Activity Pattern")
 ```
 This gives us a good general idea of the peak, but it is still a little tough to
 eyeball an exact value.  Luckily, since I used this value to add our dashed line we
@@ -95,10 +97,11 @@ rows(`r round(missing_rows/nrow(data), digits = 2) * 100`%) with missing data.
 
 Clearly, this needs to be dealt with.  Although there are many sophisticated strategies
 for dealing with missing data, in this case I am just going to use the mean value for
-the interval across all days as the imputed value for that missing day and interval.
+the interval averaged across all days as the imputed value for that missing day and interval.
 
-With this my strategy for imputation picked, I identify missing rows and replace the 
-NA values with the mean for the interval.
+With my strategy for imputation picked, I identify missing rows and replaced the 
+NA values with the mean for the interval. Note that the mean for each interval was
+already calculated above in the average daily activity section.
 
 ```{r}
 data2 <- data
@@ -161,7 +164,7 @@ int_max_wday <- avg_by_interval_wday %>%
   group_by(weekend) %>%
   filter(avg_steps == max(avg_steps))
 p4 + geom_vline(aes(xintercept = interval), int_max_wday, color = 'red',
-                linetype = 'dotted')
+                linetype = 'dotted') + geom_smooth()
 ```
 As you can see, the shape of our data is significantly different when broken down by 
 weekday/weekend.  This may indicate different activity patterns during the workweek

@@ -76,7 +76,8 @@ p1 <- ggplot(total_by_day, aes(x = date, y = total_steps)) +
   geom_histogram(stat = 'identity') +
   ylab('Total Steps') +
   xlab('Day')+
-  geom_line(stat = 'hline', yintercept = 'mean', colour = 'red')
+  geom_line(stat = 'hline', yintercept = 'mean', colour = 'red')+
+  ggtitle("Mean Number of Steps Taken Per Day")
 p1
 ```
 
@@ -126,7 +127,8 @@ p2 <- ggplot(avg_by_interval, aes(x = interval, y = avg_steps)) +
   ylab('Average # of Steps') +
   xlab('5-min Time Interval')
 int_max <- avg_by_interval$interval[avg_by_interval$avg_steps == max(avg_by_interval$avg_steps)]
-p2 + geom_vline(xintercept = int_max, color = 'red', linetype = 'dotted')
+p2 + geom_vline(xintercept = int_max, color = 'red', linetype = 'dotted') +
+  ggtitle("Average Daily Activity Pattern")
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
@@ -159,10 +161,11 @@ rows(13%) with missing data.
 
 Clearly, this needs to be dealt with.  Although there are many sophisticated strategies
 for dealing with missing data, in this case I am just going to use the mean value for
-the interval across all days as the imputed value for that missing day and interval.
+the interval averaged across all days as the imputed value for that missing day and interval.
 
-With this my strategy for imputation picked, I identify missing rows and replace the 
-NA values with the mean for the interval.
+With my strategy for imputation picked, I identify missing rows and replaced the 
+NA values with the mean for the interval. Note that the mean for each interval was
+already calculated above in the average daily activity section.
 
 
 ```r
@@ -252,7 +255,12 @@ int_max_wday <- avg_by_interval_wday %>%
   group_by(weekend) %>%
   filter(avg_steps == max(avg_steps))
 p4 + geom_vline(aes(xintercept = interval), int_max_wday, color = 'red',
-                linetype = 'dotted')
+                linetype = 'dotted') + geom_smooth()
+```
+
+```
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
+## geom_smooth: method="auto" and size of largest group is <1000, so using loess. Use 'method = x' to change the smoothing method.
 ```
 
 ![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
